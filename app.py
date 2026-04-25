@@ -6,6 +6,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import mysql.connector
 import pandas as pd
+import os
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -13,12 +14,14 @@ app = Flask(__name__)
 CORS(app)  # Allow React frontend to connect
 
 # Database config
+
+
 DB_CONFIG = {
-    "host": "shortline.proxy.rlwy.net",
-    "port": 30612,
-    "user": "root",
-    "password": "tvxfgRAhoXcSLIwSkGNQLrUNDYHgayNH",
-    "database": "railway"
+    "host": os.environ.get("MYSQL_HOST"),
+    "port": int(os.environ.get("MYSQL_PORT", 3306)),
+    "user": os.environ.get("MYSQL_USER"),
+    "password": os.environ.get("MYSQL_PASSWORD"),
+    "database": os.environ.get("MYSQL_DATABASE")
 }
 
 
